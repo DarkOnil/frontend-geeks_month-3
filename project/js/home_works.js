@@ -19,17 +19,77 @@ gmailButton.addEventListener("click", () => {
 
 //  Homework 1 (part 2) 
 
-const childBlock = document.querySelector(".child_block");
+let counter = 0;
+let timer = null;
+let isRunning = false;
 
-let position = 0;
+const seconds = document.querySelector("#seconds");
+const startButton = document.querySelector("#start");
+const stopButton = document.querySelector("#stop");
+const resetButton = document.querySelector("#reset");
 
-const moveBlock = () => {
-    position++;
-    childBlock.style.left = `${position}px`;
+function startTimer() {
+    if (isRunning) return;
 
-    if (position < 447) {
-        requestAnimationFrame(moveBlock);
+    isRunning = true;
+
+    function count() {
+        if (!isRunning) return;
+
+        counter++;
+        seconds.textContent = counter;
+
+        timer = setTimeout(count, 1000);
     }
-};
 
-moveBlock();
+    count();
+}
+
+startButton.addEventListener("click", startTimer);
+
+stopButton.addEventListener("click", () => {
+    isRunning = false;
+    clearTimeout(timer);
+});
+
+resetButton.addEventListener("click", () => {
+    isRunning = false;
+    clearTimeout(timer);
+
+    counter = 0;
+    seconds.textContent = 0;
+});
+
+// Homework 2
+
+let counter = 0;
+let interval = null;
+
+const seconds = document.querySelector("#seconds");
+const startButton = document.querySelector("#start");
+const stopButton = document.querySelector("#stop");
+const resetButton = document.querySelector("#reset");
+
+startButton.addEventListener("click", () => {
+    if (interval !== null) {
+        return;
+    }
+
+    interval = setInterval(() => {
+        counter++;
+        seconds.textContent = counter;
+    }, 1000);
+});
+
+stopButton.addEventListener("click", () => {
+    clearInterval(interval);
+    interval = null;
+});
+
+resetButton.addEventListener("click", () => {
+    clearInterval(interval);
+    interval = null;
+
+    counter = 0;
+    seconds.textContent = counter;
+});
