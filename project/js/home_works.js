@@ -19,46 +19,60 @@ gmailButton.addEventListener("click", () => {
 
 //  Homework 1 (part 2) 
 
-let counter = 0;
-let timer = null;
-let isRunning = false;
+const childBlock = document.querySelector(".child_block");
+const parentBlock = document.querySelector(".parent_block");
 
-const seconds = document.querySelector("#seconds");
-const startButton = document.querySelector("#start");
-const stopButton = document.querySelector("#stop");
-const resetButton = document.querySelector("#reset");
+let x = 0;
+let y = 0;
+let direction = "right";
 
-function startTimer() {
-    if (isRunning) return;
+function moveBlock() {
+    const maxX = parentBlock.clientWidth - childBlock.clientWidth;
+    const maxY = parentBlock.clientHeight - childBlock.clientHeight;
 
-    isRunning = true;
+    if (direction === "right") {
+        x++;
 
-    function count() {
-        if (!isRunning) return;
-
-        counter++;
-        seconds.textContent = counter;
-
-        timer = setTimeout(count, 1000);
+        if (x >= maxX) {
+            x = maxX;
+            direction = "down";
+        }
     }
 
-    count();
+    if (direction === "down") {
+        y++;
+
+        if (y >= maxY) {
+            y = maxY;
+            direction = "left";
+        }
+    }
+
+    if (direction === "left") {
+        x--;
+
+        if (x <= 0) {
+            x = 0;
+            direction = "up";
+        }
+    }
+
+    if (direction === "up") {
+        y--;
+
+        if (y <= 0) {
+            y = 0;
+            direction = "right";
+        }
+    }
+
+    childBlock.style.left = `${x}px`;
+    childBlock.style.top = `${y}px`;
+
+    requestAnimationFrame(moveBlock);
 }
 
-startButton.addEventListener("click", startTimer);
-
-stopButton.addEventListener("click", () => {
-    isRunning = false;
-    clearTimeout(timer);
-});
-
-resetButton.addEventListener("click", () => {
-    isRunning = false;
-    clearTimeout(timer);
-
-    counter = 0;
-    seconds.textContent = 0;
-});
+moveBlock();
 
 // Homework 2
 
