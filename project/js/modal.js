@@ -1,8 +1,6 @@
 // MODAL
 
 const modal = document.querySelector('.modal')
-const modalCloseBtn = document.querySelector('.modal_close')
-const btnGet = document.querySelector('#btn-get')
 
 const openModal = () => {
     modal.style.display = 'block'
@@ -14,30 +12,28 @@ const closeModal = () => {
     document.body.style.overflow = ''
 }
 
-// Open by button click
-btnGet?.addEventListener('click', openModal)
+// Открытие по кнопке
+document.querySelector('#btn-get')?.addEventListener('click', openModal)
 
-// Close by X button
-modalCloseBtn?.addEventListener('click', closeModal)
+// Закрытие по X
+document.querySelector('.modal_close')?.addEventListener('click', closeModal)
 
-// Close by click outside modal content
+// Закрытие при клике вне окна
 modal?.addEventListener('click', (event) => {
     if (event.target === modal) {
         closeModal()
     }
 })
 
-// 3: Open modal 10 seconds after page load
+// Открытие через 10 секунд
 setTimeout(() => {
     openModal()
 }, 10000)
 
-// 2: Open modal once when scrolled to the bottom of the page
+// Открытие при достижении конца страницы один раз
 const scrollHandler = () => {
-    // Check if user reached the bottom
     if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 1) {
         openModal()
-        // Remove listener so it triggers only once
         window.removeEventListener('scroll', scrollHandler)
     }
 }
