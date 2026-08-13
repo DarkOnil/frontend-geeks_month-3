@@ -1,4 +1,4 @@
-// TAB SLIDER
+
 
 const tabContentBlocks = document.querySelectorAll('.tab_content_block')
 const tabItems = document.querySelectorAll('.tab_content_item')
@@ -21,7 +21,7 @@ const showTabContent = (index = 0) => {
 hideTabContent()
 showTabContent()
 
-// Manual click
+
 tabParent.onclick = (event) => {
     if (event.target.classList.contains('tab_content_item')) {
         tabItems.forEach((tabItem, tabIndex) => {
@@ -34,7 +34,7 @@ tabParent.onclick = (event) => {
     }
 }
 
-// AUTO TAB SLIDER every 3 seconds
+
 let currentIndex = 0
 
 const autoTabSlider = () => {
