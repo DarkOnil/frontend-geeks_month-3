@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Geralt",
+        "age": 100,
+        "image": "https://i.playground.ru/e/VnIhK9pFSeYfuvWtx_fYUQ.jpeg"
+    },
+    {
+        "name": "Lara Croft",
+        "age": 26,
+        "image": "https://i.pinimg.com/originals/04/1e/f3/041ef3673b007b88e687959192b242de.jpg"
+    },
+    {
+        "name": "Kratos",
+        "age": 200,
+        "image": "https://disgustingmen.com/wp-content/uploads/2023/04/kratos-02-1024x576.jpg"
+    }
+]
