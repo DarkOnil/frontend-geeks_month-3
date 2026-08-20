@@ -49,3 +49,64 @@ const autoTabSlider = () => {
 }
 
 autoTabSlider()
+
+// CONVERTER
+
+const usdInput = document.querySelector('#usd')
+const somInput = document.querySelector('#som')
+const eurInput = document.querySelector('#eur')
+
+// Promise
+
+
+const converter = (data) => {
+    const setValue = (input, value) => {
+        input.value = value ? value.toFixed(2) : ''
+    }
+
+    somInput.oninput = () => {
+        const usdValue = somInput.value / data.usd
+        setValue(usdInput, usdValue)
+        setValue(eurInput, usdValue * data.eur)
+    }
+
+    usdInput.oninput = () => {
+        setValue(somInput, usdInput.value * data.usd)
+        setValue(eurInput, usdInput.value * data.eur)
+    }
+
+    eurInput.oninput = () => {
+        const usdValue = eurInput.value / data.eur
+        setValue(usdInput, usdValue)
+        setValue(somInput, usdValue * data.usd)
+    }
+}
+
+const getCurrency = () => {
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest()
+        xhr.open('GET', '../data/converter.json')
+        xhr.setRequestHeader('Content-type', 'application/json')
+
+        xhr.onload = () => {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                const data = JSON.parse(xhr.response)
+                resolve(data)
+            } else {
+                reject(new Error(`Failed to get converter data.`))
+            }
+        }
+
+        xhr.onerror = () => {
+            reject(new Error('Network error'))
+        }
+
+        xhr.send()
+    })
+}        
+
+getCurrency()
+    .then((data) => converter(data))
+    .catch((error) => {
+        console.log(error.message)
+    })
