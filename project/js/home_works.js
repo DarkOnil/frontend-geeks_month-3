@@ -154,3 +154,18 @@ anyDataRequest.onload = () => {
 anyDataRequest.onerror = () => {
     console.error("Не удалось загрузить azamat.json");
 };
+
+// ===== DZ 3: ЗАПРОС НА API (fetch) =====
+
+const getPostsButton = document.querySelector("#get-posts");
+
+function getPosts(url) {
+    fetch(url)
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(() => console.error(`Не удалось загрузить ${url}`));
+}
+
+getPostsButton.addEventListener("click", () => {
+    getPosts("https://jsonplaceholder.typicode.com/posts");
+});
