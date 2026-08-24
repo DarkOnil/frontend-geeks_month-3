@@ -147,5 +147,5 @@ btnPrev.onclick = () => {
     loadCard(currentCardId)
 }
 
-// Карточка не должна быть пустой изначально
+
 loadCard(currentCardId)
