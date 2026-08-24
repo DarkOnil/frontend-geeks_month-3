@@ -110,3 +110,42 @@ getCurrency()
     .catch((error) => {
         console.log(error.message)
     })
+
+// ===== CARD SWITCHER =====
+
+const card = document.querySelector('.card')
+const btnPrev = document.querySelector('#btn-prev')
+const btnNext = document.querySelector('#btn-next')
+
+const MIN_CARD_ID = 1
+const MAX_CARD_ID = 200
+
+let currentCardId = MIN_CARD_ID
+
+// Одна функция и на загрузку карточки, и на prev/next (DRY)
+const loadCard = (id) => {
+    fetch(`https://jsonplaceholder.typicode.com/todos/${id}`)
+        .then(response => response.json())
+        .then(todo => {
+            card.innerHTML = `
+                <p>${todo.title}</p>
+                <span>#${todo.id}</span>
+            `
+        })
+        .catch(() => {
+            card.innerHTML = `<p>Не удалось загрузить карточку</p>`
+        })
+}
+
+btnNext.onclick = () => {
+    currentCardId = currentCardId >= MAX_CARD_ID ? MIN_CARD_ID : currentCardId + 1
+    loadCard(currentCardId)
+}
+
+btnPrev.onclick = () => {
+    currentCardId = currentCardId <= MIN_CARD_ID ? MAX_CARD_ID : currentCardId - 1
+    loadCard(currentCardId)
+}
+
+// Карточка не должна быть пустой изначально
+loadCard(currentCardId)
