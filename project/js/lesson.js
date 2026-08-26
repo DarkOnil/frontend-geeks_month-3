@@ -149,3 +149,37 @@ btnPrev.onclick = () => {
 
 
 loadCard(currentCardId)
+
+   // WEATHER
+
+const WEATHER_API = 'https://api.openweathermap.org/data/2.5/weather'
+const API_KEY = 'dda3fa2c43759b402332f99a404688f7'
+
+const searchInput = document.querySelector('#searchInput')
+const searchButton = document.querySelector('#search')
+const city = document.querySelector('.city')
+const temp = document.querySelector('.temp')
+
+searchButton.onclick = () => {
+    if (searchInput.value === '') {
+        city.innerHTML = 'Введите название города!'
+        return
+    }
+    fetch(`${WEATHER_API}?q=${searchInput.value}&lang=ru&units=metric&appid=${API_KEY}`)
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.cod === '404') {
+                city.innerHTML = 'Город не найден!'
+                temp.innerHTML = ''
+                return
+            }else {
+                city.innerHTML = data.name
+                temp.innerHTML = data.main.temp
+            }
+searchInput.value = ''
+        })
+        .catch((error) => {
+            console.log('Ошибка при получении данных о погоде:', error)
+        })
+}
+
