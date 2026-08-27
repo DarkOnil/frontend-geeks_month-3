@@ -112,60 +112,75 @@ resetButton.addEventListener("click", () => {
 
 const charactersList = document.querySelector(".characters-list");
 
-const charactersRequest = new XMLHttpRequest();
+const getCharacters = async () => {
+    try {
+        const response = await fetch("../data/characters.json");
 
-charactersRequest.open("GET", "../data/characters.json");
-charactersRequest.send();
+        if (!response.ok) {
+            throw new Error("Не удалось загрузить characters.json");
+        }
 
-charactersRequest.onload = () => {
-    const characters = JSON.parse(charactersRequest.response);
+        const characters = await response.json();
 
-    characters.forEach(character => {
-        charactersList.innerHTML += `
-            <div class="character-card">
-                <div class="character-photo">
-                    <img src="${character.image}" alt="${character.name}">
+        characters.forEach(character => {
+            charactersList.innerHTML += `
+                <div class="character-card">
+                    <div class="character-photo">
+                        <img src="${character.image}" alt="${character.name}">
+                    </div>
+                    <h3>${character.name}</h3>
+                    <p>Возраст: ${character.age}</p>
                 </div>
-                <h3>${character.name}</h3>
-                <p>Возраст: ${character.age}</p>
-            </div>
-        `;
-    });
+            `;
+        });
+    } catch (error) {
+        console.error(error.message);
+    }
 };
 
-charactersRequest.onerror = () => {
-    console.error("Не удалось загрузить characters.json");
-};
+getCharacters();
 
 
 // ===== DZ 2: ЗАПРОС НА JSON ФАЙЛ (ANY) =====
 
-const anyDataRequest = new XMLHttpRequest();
+const getAnyData = async () => {
+    try {
+        const response = await fetch("../data/azamat.json");
 
-anyDataRequest.open("GET", "../data/azamat.json");
-anyDataRequest.send();
+        if (!response.ok) {
+            throw new Error("Не удалось загрузить azamat.json");
+        }
 
-anyDataRequest.onload = () => {
-    const data = JSON.parse(anyDataRequest.response);
+        const data = await response.json();
 
-    console.log(data);
+        console.log(data);
+    } catch (error) {
+        console.error(error.message);
+    }
 };
 
-anyDataRequest.onerror = () => {
-    console.error("Не удалось загрузить azamat.json");
-};
+getAnyData();
 
 // ===== DZ 3: ЗАПРОС НА API (fetch) =====
 
 const getPostsButton = document.querySelector("#get-posts");
 
-function getPosts(url) {
-    fetch(url)
-        .then(response => response.json())
-        .then(data => console.log(data))
-        .catch(() => console.error(`Не удалось загрузить ${url}`));
-}
+const getPosts = async (url) => {
+    try {
+        const response = await fetch(url);
 
-getPostsButton.addEventListener("click", () => {
+        if (!response.ok) {
+            throw new Error(`Не удалось загрузить ${url}`);
+        }
+
+        const data = await response.json();
+
+        console.log(data);
+    } catch (error) {
+        console.error(error.message);
+    }
+};
+
+getPostsButton?.addEventListener("click", () => {
     getPosts("https://jsonplaceholder.typicode.com/posts");
 });

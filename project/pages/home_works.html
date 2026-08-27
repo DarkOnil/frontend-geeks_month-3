@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Works</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/core.css">
@@ -26,7 +27,10 @@
                         <a href="../pages/lessons.html">Lessons</a>
                     </li>
                     <li class="menu_link">
-                        <a href="https://t.me/NurDinBuy16" target="_blank">Send message</a>
+                        <a href="../pages/posts.html">Posts</a>
+                    </li>
+                    <li class="menu_link">
+                        <a href="https://t.me/NurDinBuy16" target="_blank" rel="noopener">Send message</a>
                     </li>
                 </ul>
                 <button class="btn" id="btn-get">Click me!</button>
@@ -77,16 +81,23 @@
 
     <div class="characters">
         <div class="container">
-            <h3>DZ 1: Список персонажей (XHR + JSON)</h3>
+            <h3>DZ 1: Список персонажей (fetch + JSON)</h3>
             <div class="characters-list">
 
             </div>
         </div>
     </div>
 
+    <div class="posts_request">
+        <div class="container">
+            <h3>DZ 3: Запрос на API (fetch + async/await)</h3>
+            <button class="btn" id="get-posts">Получить посты</button>
+        </div>
+    </div>
+
     <div class="footer">
         <div class="container">
-            <a href="https://www.instagram.com/nurdinbuy/" target="_blank">
+            <a href="https://www.instagram.com/nurdinbuy/" target="_blank" rel="noopener">
                 <div class="inner_footer">
                     <h2>Made by NurDinBuy</h2>
                 </div>
@@ -107,7 +118,7 @@
                 <label>
                     <input required placeholder="Ваш номер телефона" name="phone" class="modal_input">
                 </label>
-                <button class="btn btn_dark btn_min">Перезвонить мне</button>
+                <button type="submit" class="btn btn_dark btn_min">Перезвонить мне</button>
             </form>
         </div>
     </div>

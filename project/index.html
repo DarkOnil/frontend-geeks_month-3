@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Java Script</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/core.css">
@@ -25,7 +26,10 @@
                         <a href="pages/lessons.html">Lessons</a>
                     </li>
                     <li class="menu_link">
-                        <a href="https://t.me/nurdinbuy16" target="_blank">Send message</a>
+                        <a href="pages/posts.html">Posts</a>
+                    </li>
+                    <li class="menu_link">
+                        <a href="https://t.me/nurdinbuy16" target="_blank" rel="noopener noreferrer">Send message</a>
                     </li>
                 </ul>
                 <button class="btn" id="btn-get">Click me!</button>
@@ -38,10 +42,10 @@
             <div class="inner_main">
                 <h1><strong id="js-color">JavaScript</strong> - на самом деле очень легко и просто!</h1>
                 <div class="colors-buttons">
-                    <button class="btn btn-color"></button>
-                    <button class="btn btn-color"></button>
-                    <button class="btn btn-color"></button>
-                    <button class="btn btn-color"></button>
+                    <button type="button" class="btn btn-color" aria-label="Change text color 1"></button>
+                    <button type="button" class="btn btn-color" aria-label="Change text color 2"></button>
+                    <button type="button" class="btn btn-color" aria-label="Change text color 3"></button>
+                    <button type="button" class="btn btn-color" aria-label="Change text color 4"></button>
                 </div>
             </div>
         </div>
@@ -56,28 +60,28 @@
                         <div class="slide_card">
                             <h3>regular expression</h3>
                             <p>Простыми словами, регулярное выражение - это набор символов, который задает определенные правила для поиска и сопоставления текста. Вы можете использовать регулярные выражения, чтобы найти определенные строки в тексте, заменить части строки на другие значения или извлечь нужную информацию из текста.</p>
-                            <a href="https://developer.mozilla.org/ru/docs/Web/JavaScript/Guide/Regular_expressions" target="_blank">Узнать подробнее</a>
+                            <a href="https://developer.mozilla.org/ru/docs/Web/JavaScript/Guide/Regular_expressions" target="_blank" rel="noopener noreferrer">Узнать подробнее</a>
                         </div>
                     </div>
                     <div class="slide">
                         <div class="slide_card">
                             <h3>recursion</h3>
                             <p>Простыми словами, рекурсия - это, когда функция делает повторяющиеся вызовы самой себя для решения задачи, пока не достигнет определенного условия выхода из рекурсии.</p>
-                            <a href="https://learn.javascript.ru/recursion" target="_blank">Узнать подробнее</a>
+                            <a href="https://learn.javascript.ru/recursion" target="_blank" rel="noopener noreferrer">Узнать подробнее</a>
                         </div>
                     </div>
                     <div class="slide">
                         <div class="slide_card">
                             <h3>json</h3>
                             <p>Простыми словами, JSON - это способ представления данных в виде текста, чтобы они могли быть легко поняты и использованы различными программами. Он использует простые правила для описания объектов и массивов, а также для представления простых типов данных, таких как строки, числа, логические значения и т.д.</p>
-                            <a href="https://developer.mozilla.org/ru/docs/Learn/JavaScript/Objects/JSON" target="_blank">Узнать подробнее</a>
+                            <a href="https://developer.mozilla.org/ru/docs/Learn/JavaScript/Objects/JSON" target="_blank" rel="noopener noreferrer">Узнать подробнее</a>
                         </div>
                     </div>
                     <div class="slide">
                         <div class="slide_card">
                             <h3>event loop</h3>
                             <p>Простыми словами, event loop похож на дежурного, который непрерывно проверяет, произошло ли какое-либо событие, и реагирует на него, когда оно происходит. Он имеет список задач, которые нужно выполнить, и он перебирает этот список событий одно за другим, обрабатывая каждое событие, когда оно наступает.</p>
-                            <a href="https://highload.today/kak-ustroen-event-loop-v-javascript-parallelnaya-model-i-tsikl-sobytij/" target="_blank">Узнать подробнее</a>
+                            <a href="https://highload.today/kak-ustroen-event-loop-v-javascript-parallelnaya-model-i-tsikl-sobytij/" target="_blank" rel="noopener noreferrer">Узнать подробнее</a>
                         </div>
                     </div>
                     <button class="btn-slide" id="next">next&gt;</button>
@@ -89,7 +93,7 @@
     <div class="bottle">
         <div class="container">
             <div class="bottle_inner">
-                <a href="pages/monster.html">
+                <a href="pages/monster.html" aria-label="Open the Monster page">
                     <div class="bowl">
                         <div class="shadow"></div>
                         <div class="liquid"></div>
@@ -111,7 +115,7 @@
 
     <div class="footer">
         <div class="container">
-            <a href="https://www.instagram.com/nurdinbuy/" target="_blank">
+            <a href="https://www.instagram.com/nurdinbuy/" target="_blank" rel="noopener noreferrer">
                 <div class="inner_footer">
                     <h2>Made by NurDinBuy</h2>
                 </div>
@@ -144,7 +148,7 @@
                         class="modal_input"
                     >
                 </label>
-                <button class="btn btn_dark btn_min">Перезвонить мне</button>
+                <button type="submit" class="btn btn_dark btn_min">Перезвонить мне</button>
             </form>
         </div>
     </div>

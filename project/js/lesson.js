@@ -56,8 +56,7 @@ const usdInput = document.querySelector('#usd')
 const somInput = document.querySelector('#som')
 const eurInput = document.querySelector('#eur')
 
-// Promise
-
+// async/await + try/catch
 
 const converter = (data) => {
     const setValue = (input, value) => {
@@ -82,34 +81,22 @@ const converter = (data) => {
     }
 }
 
-const getCurrency = () => {
-    return new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest()
-        xhr.open('GET', '../data/converter.json')
-        xhr.setRequestHeader('Content-type', 'application/json')
+const getCurrency = async () => {
+    try {
+        const response = await fetch('../data/converter.json')
 
-        xhr.onload = () => {
-            if (xhr.status >= 200 && xhr.status < 300) {
-                const data = JSON.parse(xhr.response)
-                resolve(data)
-            } else {
-                reject(new Error(`Failed to get converter data.`))
-            }
+        if (!response.ok) {
+            throw new Error('Failed to get converter data.')
         }
 
-        xhr.onerror = () => {
-            reject(new Error('Network error'))
-        }
-
-        xhr.send()
-    })
-}        
+        const data = await response.json()
+        converter(data)
+    } catch (error) {
+        console.log(error.message)
+    }
+}
 
 getCurrency()
-    .then((data) => converter(data))
-    .catch((error) => {
-        console.log(error.message)
-    })
 
 // ===== CARD SWITCHER =====
 
@@ -123,18 +110,23 @@ const MAX_CARD_ID = 200
 let currentCardId = MIN_CARD_ID
 
 // Одна функция и на загрузку карточки, и на prev/next (DRY)
-const loadCard = (id) => {
-    fetch(`https://jsonplaceholder.typicode.com/todos/${id}`)
-        .then(response => response.json())
-        .then(todo => {
-            card.innerHTML = `
-                <p>${todo.title}</p>
-                <span>#${todo.id}</span>
-            `
-        })
-        .catch(() => {
-            card.innerHTML = `<p>Не удалось загрузить карточку</p>`
-        })
+const loadCard = async (id) => {
+    try {
+        const response = await fetch(`https://jsonplaceholder.typicode.com/todos/${id}`)
+
+        if (!response.ok) {
+            throw new Error('Не удалось загрузить карточку')
+        }
+
+        const todo = await response.json()
+
+        card.innerHTML = `
+            <p>${todo.title}</p>
+            <span>#${todo.id}</span>
+        `
+    } catch (error) {
+        card.innerHTML = `<p>${error.message}</p>`
+    }
 }
 
 btnNext.onclick = () => {
@@ -150,7 +142,7 @@ btnPrev.onclick = () => {
 
 loadCard(currentCardId)
 
-   // WEATHER
+// WEATHER
 
 const WEATHER_API = 'https://api.openweathermap.org/data/2.5/weather'
 const API_KEY = 'dda3fa2c43759b402332f99a404688f7'
@@ -160,26 +152,27 @@ const searchButton = document.querySelector('#search')
 const city = document.querySelector('.city')
 const temp = document.querySelector('.temp')
 
-searchButton.onclick = () => {
+searchButton.onclick = async () => {
     if (searchInput.value === '') {
         city.innerHTML = 'Введите название города!'
         return
     }
-    fetch(`${WEATHER_API}?q=${searchInput.value}&lang=ru&units=metric&appid=${API_KEY}`)
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.cod === '404') {
-                city.innerHTML = 'Город не найден!'
-                temp.innerHTML = ''
-                return
-            }else {
-                city.innerHTML = data.name
-                temp.innerHTML = data.main.temp
-            }
-searchInput.value = ''
-        })
-        .catch((error) => {
-            console.log('Ошибка при получении данных о погоде:', error)
-        })
+
+    try {
+        const response = await fetch(`${WEATHER_API}?q=${searchInput.value}&lang=ru&units=metric&appid=${API_KEY}`)
+        const data = await response.json()
+
+        if (data.cod === '404') {
+            city.innerHTML = 'Город не найден!'
+            temp.innerHTML = ''
+            return
+        }
+
+        city.innerHTML = data.name
+        temp.innerHTML = data.main.temp
+        searchInput.value = ''
+    } catch (error) {
+        console.log('Ошибка при получении данных о погоде:', error)
+    }
 }
 
