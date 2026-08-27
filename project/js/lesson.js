@@ -35,21 +35,22 @@ tabParent.onclick = (event) => {
 }
 
 // AUTO TAB SLIDER every 3 seconds
-let currentIndex = 0
-
-const autoTabSlider = () => {
-    setInterval(() => {
-        currentIndex++
-        if (currentIndex > tabContentBlocks.length - 1) {
-            currentIndex = 0
+const autoTabSlider = async () => {
+    try {
+        while (true) {
+            await new Promise(resolve => setTimeout(resolve, 3000))
+            currentIndex++
+            if (currentIndex >= tabContentBlocks.length) {
+                currentIndex = 0
+            }
+            hidenTabContent()
+            showTabContent(currentIndex)
         }
-        hideTabContent()
-        showTabContent(currentIndex)
-    }, 3000)
+    } catch (error) {
+        console.log(error)
+    }
 }
-
 autoTabSlider()
-
 // CONVERTER
 
 const usdInput = document.querySelector('#usd')
